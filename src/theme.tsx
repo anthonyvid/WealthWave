@@ -1,31 +1,48 @@
 import { PaletteMode } from "@mui/material";
-import { amber, deepOrange, grey } from "@mui/material/colors";
+import { grey, red } from "@mui/material/colors";
 
 export const themeSettings = (mode: PaletteMode) => {
-  return {
-    palette: {
-      mode,
-      ...(mode === "light"
-        ? {
-            primary: amber,
-            divider: amber[200],
-            text: {
-              primary: grey[900],
-              secondary: grey[800],
-            },
-          }
-        : {
-            primary: deepOrange,
-            divider: deepOrange[700],
-            background: {
-              default: deepOrange[900],
-              paper: deepOrange[900],
-            },
-            text: {
-              primary: "#fff",
-              secondary: grey[500],
-            },
-          }),
-    },
-  };
+  if (mode === "light") {
+    return {
+      typography: {
+        fontFamily: "Inter, sans-serif",
+      },
+      palette: {
+        mode,
+        primary: {
+          main: "#436AB1",
+        },
+        secondary: {
+          main: "#FFA500",
+        },
+        error: {
+          main: red[500],
+        },
+        text: {
+          primary: "#000", // Black for main text
+          secondary: grey[600], // Lighter black/grey for subheadings
+        },
+      },
+    };
+  } else {
+    // Dark mode configuration
+    return {
+      palette: {
+        mode,
+        primary: {
+          main: "#1E88E5", // Different primary color for dark mode
+        },
+        secondary: {
+          main: "#FF8F00", // Different secondary color for dark mode
+        },
+        error: {
+          main: red[500],
+        },
+        text: {
+          primary: "#fff", // White for main text in dark mode
+          secondary: grey[300], // Lighter white/grey for subheadings in dark mode
+        },
+      },
+    };
+  }
 };
