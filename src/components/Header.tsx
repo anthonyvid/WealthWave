@@ -21,9 +21,11 @@ import {
   StyledToolbar,
 } from "../styles/Header.style";
 import { useLocation, useNavigate } from "react-router-dom";
+import { logout } from "../services/auth.service";
+import { setLogin } from "../reducers/auth";
+import { useDispatch } from "react-redux";
 
 const pages = ["Dashboard", "Market", "Portfolio"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const props = {};
 
@@ -36,6 +38,7 @@ const Header = (props: Props) => {
   );
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -51,6 +54,26 @@ const Header = (props: Props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleLogout = async () => {
+    const response: any = await logout();
+    if (response.status === 200) {
+      dispatch(
+        setLogin({
+          user: null,
+          token: null,
+        })
+      );
+      navigate(`/login`);
+    }
+  };
+
+  const settings = [
+    { label: "Profile" },
+    { label: "Account" },
+    { label: "Dashboard" },
+    { label: "Logout", action: handleLogout },
+  ];
 
   return (
     <StyledAppBar position="static">
@@ -138,9 +161,9 @@ const Header = (props: Props) => {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
+            {settings.map(({ label, action }) => (
+              <MenuItem key={label} onClick={action}>
+                <Typography textAlign="center">{label}</Typography>
               </MenuItem>
             ))}
           </Menu>

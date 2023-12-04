@@ -21,6 +21,7 @@ export const themeSettings = (mode: PaletteMode) => {
         text: {
           primary: "#000", // Black for main text
           secondary: grey[600], // Lighter black/grey for subheadings
+          grey: "#7c7c7c",
         },
       },
     };
@@ -41,6 +42,7 @@ export const themeSettings = (mode: PaletteMode) => {
         text: {
           primary: "#fff", // White for main text in dark mode
           secondary: grey[300], // Lighter white/grey for subheadings in dark mode
+          grey: "#7c7c7c",
         },
       },
     };

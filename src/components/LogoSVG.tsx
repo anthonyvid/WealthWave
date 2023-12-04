@@ -2,13 +2,18 @@ import { Box, Typography, useTheme } from "@mui/material";
 
 type Props = {
   isMobile?: boolean;
+  forceShow?: boolean;
 };
-const LogoSVG = ({ isMobile = false }: Props) => {
+const LogoSVG = ({ isMobile = false, forceShow = false }: Props) => {
   const theme = useTheme();
 
-  const display = isMobile
+  let display = isMobile
     ? { xs: "flex", md: "none" }
     : { xs: "none", md: "flex" };
+
+  if (forceShow) {
+    display = { xs: "flex", md: "flex" };
+  }
 
   const variant = isMobile ? "h5" : "h6";
 

@@ -18,12 +18,12 @@ const PageContainer = styled("div")`
   color: ${(props) => props.theme.palette.text.primary};
 `;
 
-type Props = { children: ReactNode };
+type Props = { children: ReactNode; disableHeader?: boolean };
 
-const PageLayout = ({ children }: Props) => {
+const PageLayout = ({ children, disableHeader = false }: Props) => {
   return (
     <PageContainer>
-      <Header />
+      {!disableHeader && <Header />}
       <main style={{ padding: "30px 40px", flex: 1 }}>{children}</main>
     </PageContainer>
   );
